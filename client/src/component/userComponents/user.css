@@ -1,0 +1,19 @@
+.user-home-img {
+  position: relative;
+  height: 100vh;
+  background-image: url('../../assets/userbg.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.content-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  padding: 20px;
+  background: rgba(52, 48, 48, 0.5);
+  border-radius: 10px;
+}
