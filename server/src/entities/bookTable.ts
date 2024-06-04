@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { UserBook } from "./userBookTable";
 
 @Entity()
-export class Book {
+export class BookDetails {
   @PrimaryGeneratedColumn()
   ID: number;
 
@@ -12,4 +12,3 @@ export class Book {
   @OneToMany(() => UserBook, (userBook) => userBook.bookname)
   userBooks: UserBook[];
 }
-  

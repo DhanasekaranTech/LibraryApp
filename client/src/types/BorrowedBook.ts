@@ -1,7 +1,10 @@
-export default interface BorrowedBook{
-    UBID:number;
-    startdate:string;
-    enddate:string;
-   // usernameID:number;
-    //booknameID:number
+import Books from "./Books";
+import User from "./user";
+
+export default interface BorrowedBook {
+  UBID: number;
+  username: User;
+  bookname: Books;
+  startdate: string;
+  enddate: string;
 }

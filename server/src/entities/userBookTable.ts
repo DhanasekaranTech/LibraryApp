@@ -1,25 +1,30 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, BaseEntity } from 'typeorm';
-import {User} from './userTable';
-import { Book} from './bookTable';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  BaseEntity,
+} from "typeorm";
+
+import { UserDetails } from "./userTable";
+import { BookDetails } from "./bookTable";
 
 @Entity()
-export class UserBook extends BaseEntity{
+export class UserBook extends BaseEntity {
   @PrimaryGeneratedColumn()
   UBID: number;
 
-  @ManyToOne(() => User, user => user.userBooks)
-  username: User;
+  @ManyToOne(() => UserDetails, (user) => user.userBooks)
+  username: UserDetails;
 
-  @ManyToOne(() => Book, book => book.userBooks)
-  bookname: Book;
-  
+  @ManyToOne(() => BookDetails, (book) => book.userBooks, {
+    onDelete: "CASCADE",
+  })
+  bookname: BookDetails;
+
   @Column()
-  startdate:string;
+  startdate: string;
 
   @Column()
-  enddate:string;
-
-
-  
+  enddate: string;
 }
-

@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
 import { AppDataSource } from "../dbConfig";
-import { User } from "../entities/userTable";
-import { Book } from "../entities/bookTable";
+import { UserDetails } from "../entities/userTable";
+import { BookDetails } from "../entities/bookTable";
 import { UserBook } from "../entities/userBookTable";
 import bcrypt from "bcryptjs";
-// import jwt from 'jsonwebtoken';
 import { generateToken } from "../middleware/jwt";
 // import 'dotenv/config';
 
@@ -13,7 +12,7 @@ import { generateToken } from "../middleware/jwt";
 export const signUp = async (req: Request, res: Response) => {
   try {
     const { username, password } = req.body;
-    const userRepository = AppDataSource.getRepository(User);
+    const userRepository = AppDataSource.getRepository(UserDetails);
     if (
       !username ||
       typeof username !== "string" ||
@@ -56,7 +55,7 @@ export const signIn = async (req: Request, res: Response) => {
         message: "Username and password are required and must be strings",
       });
     }
-    const userRepository = AppDataSource.getRepository(User);
+    const userRepository = AppDataSource.getRepository(UserDetails);
     const user = await userRepository.findOne({ where: { username } });
     if (!user) {
       return res.status(401).json({ message: "Invalid username or password" });
@@ -83,7 +82,7 @@ export const signIn = async (req: Request, res: Response) => {
 export const viewProfile = async (req: Request, res: Response) => {
   try {
     const userId = req.params;
-    const userRepo = AppDataSource.getRepository(User);
+    const userRepo = AppDataSource.getRepository(UserDetails);
     const user = userRepo.findOne(userId);
     if (user) return res.json(user);
     return res.status(400).json({ message: "cannot find user" });
@@ -94,7 +93,7 @@ export const viewProfile = async (req: Request, res: Response) => {
 
 export const viewBooks = async (req: Request, res: Response) => {
   try {
-    const bookRepository = AppDataSource.getRepository(Book);
+    const bookRepository = AppDataSource.getRepository(BookDetails);
     const books = await bookRepository.find();
     return res.status(200).json(books);
   } catch (error) {
@@ -111,8 +110,8 @@ export const borrowBook = async (req: Request, res: Response) => {
   }
 
   try {
-    const userRepository = AppDataSource.getRepository(User);
-    const bookRepository = AppDataSource.getRepository(Book);
+    const userRepository = AppDataSource.getRepository(UserDetails);
+    const bookRepository = AppDataSource.getRepository(BookDetails);
     const userBookRepository = AppDataSource.getRepository(UserBook);
 
     const user = await userRepository.findOne({
@@ -132,7 +131,9 @@ export const borrowBook = async (req: Request, res: Response) => {
       enddate: enddate,
     });
     await userBookRepository.save(newUserBook);
-    return res.status(201).json({ message: "Book borrowed successfully" });
+    return res
+      .status(201)
+      .json({ message: "Book borrowed successfully", newUserBook });
   } catch (error) {
     console.error("Error borrowing book:", error);
     return res.status(500).json({ message: "Internal server error" });
@@ -143,7 +144,9 @@ export const viewBorrowedBooks = async (req: Request, res: Response) => {
   try {
     // const { UBID } = req.body;
     const userBookRepository = AppDataSource.getRepository(UserBook);
-    const userBooks = await userBookRepository.find();
+    const userBooks = await userBookRepository.find({
+      relations: ["username", "bookname"],
+    });
     // {where: { UBID: UBID }}
     return res.status(201).json(userBooks);
   } catch (error) {
@@ -159,27 +162,16 @@ export const viewBorrowedBooks = async (req: Request, res: Response) => {
 //       where:{username:userID}
 //     });
 
-
 //     if (userBooks?.hasId()) {
 //       return res.status(404).json({ message: "No borrowed books found for this user" });
 //     }
-   
+
 //     return res.status(201).json(userBooks);
 //   } catch (error) {
 //     console.error("Error borrowed books:", error);
 //     return res.status(500).json({ message: "Internal server error" });
 //   }
 // };
-
-
-
-
-
-
-
-
-
-
 
 // export const viewBorrowedBooks = async (req: Request, res: Response) => {
 //   try {

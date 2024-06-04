@@ -1,19 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import navIcon from "../../assets/homeicon.webp";
 import "./user.css";
 import Books from "../../types/Books";
 import api from "../../api/api";
 import { useEffect, useState } from "react";
 
-// interface userDashboard{
-//   books: Books[];
-//   setBooks:React.Dispatch<React.SetStateAction<Books[]>>
-// }
-
-const UserDashboard:React.FC = ()=> {
+const UserDashboard: React.FC = () => {
   const [books, setBooks] = useState<Books[]>([]);
 
- 
   const fetchBooks = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -30,10 +24,17 @@ const UserDashboard:React.FC = ()=> {
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchBooks();
-  },[])
-  
+  }, []);
+
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
     <>
       <div className="user-home-img">
@@ -51,10 +52,13 @@ const UserDashboard:React.FC = ()=> {
             </a>
             <div>
               <Link to="/profile">
-                <button className="btn btn-warning btn-sm me-5 ms-3">
+                <button className="btn btn-warning btn-sm me-2 ms-3">
                   View Profile
                 </button>
               </Link>
+              <button className="btn btn-danger btn-sm" onClick={logout}>
+                Logout
+              </button>
             </div>
           </div>
         </nav>
@@ -65,7 +69,6 @@ const UserDashboard:React.FC = ()=> {
               <div className="col" key={book.ID}>
                 <div
                   className="card shadow-lg p-3 mb-5 bg-body rounded-4"
-                  
                   style={{ width: "18rem", margin: "1rem" }}
                 >
                   <div className="card-body">
@@ -76,13 +79,13 @@ const UserDashboard:React.FC = ()=> {
               </div>
             ))}
           </div>
-          <Link to='/borrow'>
-          <button
-            className="btn btn-success  h-25 ms-3"
-            style={{ width: "20" }}
-          >
-            Borrow book
-          </button>
+          <Link to="/borrow">
+            <button
+              className="btn btn-success  h-25 ms-3"
+              style={{ width: "20" }}
+            >
+              Borrow book
+            </button>
           </Link>
         </div>
       </div>

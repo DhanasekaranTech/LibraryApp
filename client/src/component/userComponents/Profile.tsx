@@ -3,9 +3,6 @@ import navIcon from "../../assets/homeicon.webp";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 
-
-
-
 interface DecodedToken {
   id: string;
   role: string;
@@ -13,7 +10,6 @@ interface DecodedToken {
 }
 
 const Profile = () => {
-
   const [userName, setUserName] = useState("");
   const [userId, setUserId] = useState("");
 
@@ -55,11 +51,15 @@ const Profile = () => {
         <div className=" bg-light shadow-lg p-3 mb-5 bg-body rounded-4">
           <h3 className="mt-5 ms-5 me-5">name: {userName}</h3>
           <h3 className="ms-5 ">id: {userId}</h3>
-          <Link to='/borrowed'>
-          <button className="btn btn-primary ms-3 mb-2 btn-sm">view my books</button>
+          <Link to="/borrowed">
+            <button className="btn btn-primary ms-3 mb-2 btn-sm">
+              view my books
+            </button>
           </Link>
-          <Link to='/userDashboard'>
-            <button className="btn btn-secondary btn-sm ms-2 me-2 mb-2">back</button>
+          <Link to="/userDashboard">
+            <button className="btn btn-secondary btn-sm ms-2 me-2 mb-2">
+              back
+            </button>
           </Link>
         </div>
       </div>

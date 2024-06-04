@@ -14,9 +14,8 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-
   api.defaults.withCredentials = true;
-  
+
   const handleSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -24,17 +23,16 @@ const SignIn = () => {
       const response = await api.post("/auth/signin", {
         username,
         password,
-        
       });
 
       const data = response.data;
 
       const token = data.token;
-      
+
       //console.log(data,token);
-      
+
       localStorage.setItem("token", token);
-      
+
       const decodedToken = jwtDecode<DecodedToken>(token);
       const role = decodedToken.role;
 
@@ -43,7 +41,7 @@ const SignIn = () => {
       } else {
         navigate("/userDashboard");
       }
-    } catch (error:unknown) {
+    } catch (error: unknown) {
       return console.log(error);
     }
   };
@@ -82,9 +80,7 @@ const SignIn = () => {
               // action=""
             >
               <h3>Welcome again</h3>
-              <label className="form-label"  >
-                user name:{" "}
-              </label>
+              <label className="form-label">user name: </label>
               <input
                 name="username"
                 className="form-control"
@@ -94,9 +90,7 @@ const SignIn = () => {
                 onChange={(e) => setUserName(e.target.value)}
               ></input>
 
-              <label className="form-label" >
-                password:{" "}
-              </label>
+              <label className="form-label">password: </label>
               <input
                 name="password"
                 className="form-control"

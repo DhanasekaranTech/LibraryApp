@@ -1,4 +1,4 @@
-export default interface Books{
- ID:number;
- bookname: string
+export default interface Books {
+  ID: number;
+  bookname: string;
 }

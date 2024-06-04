@@ -4,12 +4,7 @@ import "./sign.css";
 import { useState } from "react";
 import api from "../../api/api";
 
-
-
-  
-
 const SignUp = () => {
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -28,7 +23,6 @@ const SignUp = () => {
       }
     } catch (error) {
       console.log(error);
-      
     }
   };
   return (
@@ -60,7 +54,11 @@ const SignUp = () => {
             className="container d-flex justify-content-center align-items-center  "
             style={{ height: "75vh" }}
           >
-            <form className="form-control form-outline w-25" onSubmit={handleSignUp} action="">
+            <form
+              className="form-control form-outline w-25"
+              onSubmit={handleSignUp}
+              action=""
+            >
               <h3>Hurry up!</h3>
 
               <label className="form-label" htmlFor="">
@@ -72,7 +70,7 @@ const SignUp = () => {
                 placeholder="Enter username"
                 name="username"
                 value={username}
-                onChange={(e)=>setUsername(e.target.value)}
+                onChange={(e) => setUsername(e.target.value)}
               ></input>
 
               <label className="form-label" htmlFor="">
@@ -84,7 +82,7 @@ const SignUp = () => {
                 placeholder="Enter password"
                 name="password"
                 value={password}
-                onChange={(e)=> setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               ></input>
 
               <button

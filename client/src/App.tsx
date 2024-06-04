@@ -13,31 +13,8 @@ import ManageSystem from "./component/adminComponents/ManageSystem";
 import "core-js/stable/atob";
 import AddBook from "./component/adminComponents/AddBook";
 import ProtectedRoute from "./component/Protected";
-//import { useState, useEffect } from "react";
-//import { jwtDecode } from "jwt-decode";
-//import Books from "./types/Books";
-//import BorrowedBook from "./types/BorrowedBook";
-
-// interface DecodedToken {
-//   id: string;
-//   role: string;
-//   name: string;
-// }
 
 function App() {
-  // const [userName, setUserName] = useState("");
-  // const [userId, setUserId] = useState("");
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
-  //   if (token) {
-  //     const decodedToken = jwtDecode<DecodedToken>(token);
-  //     setUserName(decodedToken.name);
-  //     setUserId(decodedToken.id);
-  //     console.log(decodedToken.name, decodedToken.id, decodedToken.role);
-  //   }
-  // }, []);
-
   return (
     <BrowserRouter>
       <Routes>
@@ -45,45 +22,80 @@ function App() {
         <Route path="/signIn" element={<SignIn />}></Route>
         <Route path="/signUp" element={<SignUp />}></Route>
 
-<Route path="/userDashboard" element={
-  <ProtectedRoute>
-    <UserDashboard/>
-  </ProtectedRoute>
-}>
+        <Route
+          path="/userDashboard"
+          element={
+            <ProtectedRoute>
+              <UserDashboard />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/adminDashboard"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        ></Route>
 
-</Route>
-<Route path="/adminDashboard" element={
-  <ProtectedRoute>
-    <AdminDashboard/>
-  </ProtectedRoute>
-}>
-
-</Route>
-
-        {/* {role === "user" && ( */}
-      {/* //  <Route path="/userDashboard" element={<UserDashboard />}></Route> */}
-        {/* )} */}
-
-        {/* {role === "admin" && ( */}
-        {/* <Route path="/adminDashboard" element={<AdminDashboard />}></Route> */}
-        {/* )} */}
         <Route
           path="/profile"
           element={
-            <Profile
-              // userName={userName}
-              // setUserName={setUserName}
-              // userId={userId}
-              // setUserId={setUserId}
-            />
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
           }
         ></Route>
-        <Route path="/borrow" element={<Borrow />}></Route>
-        <Route path="/borrowed" element={<MyBook />}></Route>
-        <Route path="/manageUsers" element={<ManageUsers />}></Route>
-        <Route path="/manageBooks" element={<ManageBooks />}></Route>
-        <Route path="/addBook" element={<AddBook/>}></Route>
-        <Route path="/manageSystem" element={<ManageSystem />}></Route>
+
+        <Route
+          path="/borrow"
+          element={
+            <ProtectedRoute>
+              <Borrow />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/borrowed"
+          element={
+            <ProtectedRoute>
+              <MyBook />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/manageUsers"
+          element={
+            <ProtectedRoute>
+              <ManageUsers />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/manageBooks"
+          element={
+            <ProtectedRoute>
+              <ManageBooks />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/addBook"
+          element={
+            <ProtectedRoute>
+              <AddBook />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/manageSystem"
+          element={
+            <ProtectedRoute>
+              <ManageSystem />
+            </ProtectedRoute>
+          }
+        ></Route>
       </Routes>
     </BrowserRouter>
   );

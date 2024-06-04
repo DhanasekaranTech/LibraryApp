@@ -15,19 +15,20 @@ const Borrow = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await api.post("/user/borrow", {
-        username,
-        bookname,
-        startdate,
-        enddate
-        
-        
-      },{
-        headers:{
-          Authorization: `Bearer ${token} `,
-
+      const response = await api.post(
+        "/user/borrow",
+        {
+          username,
+          bookname,
+          startdate,
+          enddate,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token} `,
+          },
         }
-      });
+      );
 
       if (response.status === 201) {
         navigate("/userDashboard");

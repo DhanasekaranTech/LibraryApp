@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { UserBook } from "./userBookTable";
 
 @Entity()
-export class User {
+export class UserDetails {
   @PrimaryGeneratedColumn()
   ID: number;
 

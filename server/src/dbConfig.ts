@@ -1,7 +1,5 @@
 import { DataSource } from "typeorm";
-import { User} from "./entities/userTable"
-import { Book } from "./entities/bookTable";
-import{UserBook} from "./entities/userBookTable"
+
 import path from "path";
 //import { config } from "dotenv";
 
